@@ -1,2 +1,2 @@
 # Gallery
-Gallery images using react, tailwindcss and airtable
+Images galery using react, tailwindcss and airtable
