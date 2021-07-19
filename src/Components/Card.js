@@ -2,11 +2,13 @@ import React from "react";
 
 const Card = ({ record }) => {
   return (
-    <div className='p-3 mx-auto border-solid border-2 border-gray-600 bg-white h-64 shadow-xl mx-auto rounded-sm w-middle h-box'>
-      <img className="" src={record?.image?.url} />
-      <h1 className="text-l text-grey-900 leading-normal font-bold m-1 text-lg">{record?.headline}</h1>
-      <h3 className="text-pink-500 truncate">{record?.subHeadline}</h3>
-    </div>
+      <div className="rounded overflow-hidden shadow-lg">
+        <img className="w-full" src={record?.image?.url} />
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl mb-2">{record?.headline}</div>
+          <p className="text-gray-700 text-base">{record?.subHeadline} </p>
+        </div>
+      </div>
   );
 };
 
