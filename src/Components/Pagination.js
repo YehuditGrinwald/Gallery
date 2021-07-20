@@ -1,7 +1,6 @@
 import React from "react";
 
 const Pagination = ({onChange,page}) => {
-    console.log('pppp ',page);
     const currentPageClassName = 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600';
     const handleClick = (e,page) => {
         debugger

@@ -10,6 +10,7 @@ const base = new Airtable({ apiKey: "keybzF83gwBlqyK1y" }).base(
 function App() {
   const [records, setRecords] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
   const TOTAL_PAGES = 3;
   let NUM_OF_RECORDS;
   let LIMIT = 6;
@@ -21,11 +22,16 @@ function App() {
     },
     [setCurrentPage]
   );
-  let currentData = records.slice(
+  let currentData = isMobile? records: records.slice(
     (currentPage - 1) * LIMIT,
     (currentPage - 1) * LIMIT + LIMIT
   );
   let { width } = useViewport();
+
+  useEffect(() => {
+    width> MOBILE_BREAKPOINT?setIsMobile(false):setIsMobile(true);
+  }, [width]);
+
   useEffect(() => {
     base("Content")
       .select({
@@ -71,7 +77,7 @@ function App() {
           <Card record={record} key={record.id}></Card>
         ))}
       </div>
-     {width> MOBILE_BREAKPOINT ? <Pagination
+     {!isMobile? <Pagination
         onChange={onPageChanged}
         page={currentPage}
         totalPages={TOTAL_PAGES}
