@@ -2,7 +2,7 @@ import React, { useEffect, useState,useCallback } from "react";
 import Card from "./Components/Card";
 import Airtable from "airtable";
 import Pagination from './Components/Pagination';
-
+import useViewport from './Hooks/Viewport';
 const base = new Airtable({ apiKey: "keybzF83gwBlqyK1y" }).base(
   "app6sBYGS0j6bS8ae"
 );
@@ -13,6 +13,7 @@ function App() {
   const TOTAL_PAGES = 3;
   let NUM_OF_RECORDS;
   let LIMIT = 6;
+  const MOBILE_BREAKPOINT = 375;
   const onPageChanged = useCallback(
     (event, page) => {
       event.preventDefault();
@@ -24,6 +25,7 @@ function App() {
     (currentPage - 1) * LIMIT,
     (currentPage - 1) * LIMIT + LIMIT
   );
+  let { width } = useViewport();
   useEffect(() => {
     base("Content")
       .select({
@@ -69,11 +71,11 @@ function App() {
           <Card record={record} key={record.id}></Card>
         ))}
       </div>
-      <Pagination
+     {width> MOBILE_BREAKPOINT ? <Pagination
         onChange={onPageChanged}
         page={currentPage}
         totalPages={TOTAL_PAGES}
-      ></Pagination>
+      ></Pagination>:''}
     </div>
   );
 }
