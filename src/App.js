@@ -71,18 +71,28 @@ function App() {
   }, []);
 
   return (
-    <div >
-      <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-        {currentData.map((record) => (
-          <Card record={record} key={record.id}></Card>
-        ))}
-      </div>
-     {!isMobile? <Pagination
-        onChange={onPageChanged}
-        page={currentPage}
-        totalPages={TOTAL_PAGES}
-      ></Pagination>:''}
-    </div>
+    <>
+      {currentData.length ? (
+        <div>
+          <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
+            {currentData.map((record) => (
+              <Card record={record} key={record.id}></Card>
+            ))}
+          </div>
+          {!isMobile ? (
+            <Pagination
+              onChange={onPageChanged}
+              page={currentPage}
+              totalPages={TOTAL_PAGES}
+            ></Pagination>
+          ) : (
+            ""
+          )}
+        </div>
+      ) : (
+        "Loading..."
+      )}
+    </>
   );
 }
 

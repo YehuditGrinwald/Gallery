@@ -1,3 +1,4 @@
+const { gray } = require('tailwindcss/colors')
 const colors = require('tailwindcss/colors')
 
 // module.exports = {
@@ -16,6 +17,13 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   purge: [],
   theme: {
+    margin: {
+      sm: '8px',
+      md: '16px',
+      lg: '24px',
+      xl: '48px',
+      max: '50%'
+     },
     inset: {
       '0': 0,
       'auto': 'auto',
@@ -47,12 +55,18 @@ module.exports = {
       '7/10': "70%"
     },
     extend: {
-      colors: {
-        sky: colors.sky,
-        cyan: colors.cyan,
-        pink: colors.fuchsia,
-      },
     },
+    textColor: {
+      gray: '#808080',
+      light_gray:'#A0A0A0'
+    },
+    minHeight: {
+      '0': '0',
+      '1/4': '25%',
+      '1/2': '50%',
+      '3/4': '75%',
+      'full': '100%',
+     }
   },
   variants: {},
   plugins: [],
