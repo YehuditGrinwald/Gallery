@@ -8,8 +8,6 @@ const useViewport = () => {
       window.addEventListener("resize", handleWindowResize);
       return () => window.removeEventListener("resize", handleWindowResize);
     }, []);
-  
-    // Return the width so we can use it in our components
     return { width };
   }
 export default useViewport;

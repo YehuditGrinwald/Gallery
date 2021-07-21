@@ -1,11 +1,10 @@
-import React, { useEffect, useState,useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Card from "./Components/Card";
 import Airtable from "airtable";
-import Pagination from './Components/Pagination';
-import useViewport from './Hooks/Viewport';
-const base = new Airtable({ apiKey: "keybzF83gwBlqyK1y" }).base(
-  "app6sBYGS0j6bS8ae"
-);
+import Pagination from "./Components/Pagination";
+import useViewport from "./Hooks/Viewport";
+import { apiKey, baseKey } from "./constances.js";
+const base = new Airtable({ apiKey: apiKey }).base(baseKey);
 
 function App() {
   const [records, setRecords] = useState([]);
@@ -14,7 +13,7 @@ function App() {
   const TOTAL_PAGES = 3;
   let NUM_OF_RECORDS;
   let LIMIT = 6;
-  const MOBILE_BREAKPOINT = 375;
+  const MOBILE_BREAKPOINT = 780;
   const onPageChanged = useCallback(
     (event, page) => {
       event.preventDefault();
@@ -22,21 +21,21 @@ function App() {
     },
     [setCurrentPage]
   );
-  let currentData = isMobile? records: records.slice(
-    (currentPage - 1) * LIMIT,
-    (currentPage - 1) * LIMIT + LIMIT
-  );
+  let currentData = isMobile
+    ? records
+    : records.slice(
+        (currentPage - 1) * LIMIT,
+        (currentPage - 1) * LIMIT + LIMIT
+      );
   let { width } = useViewport();
 
   useEffect(() => {
-    width> MOBILE_BREAKPOINT?setIsMobile(false):setIsMobile(true);
+    width > MOBILE_BREAKPOINT ? setIsMobile(false) : setIsMobile(true);
   }, [width]);
 
   useEffect(() => {
     base("Content")
       .select({
-        // Selecting the first 3 records in Content pipeline:
-        // maxRecords: 3,
         view: "Content pipeline",
       })
       .eachPage(
@@ -55,7 +54,6 @@ function App() {
                   : null,
             });
           });
-          console.log("updatedRecordsArray ", updatedRecordsArray);
           NUM_OF_RECORDS = updatedRecordsArray.length;
           setRecords(updatedRecordsArray);
           fetchNextPage();
@@ -97,5 +95,3 @@ function App() {
 }
 
 export default App;
-//record.fields.Sub-headline
-//.Header image[1].url
